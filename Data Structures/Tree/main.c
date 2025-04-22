@@ -14,8 +14,8 @@ void traverse_pre(TreeNode *root) {
   if (cursor == NULL)
     return;
 
-  printf("%d -> ", cursor->value);
   traverse_pre(cursor->left);
+  printf("%d->", cursor->value);
   traverse_pre(cursor->right);
 }
 
@@ -27,12 +27,14 @@ TreeNode *node_create(int value) {
 
 void bst_insert(TreeNode **root, TreeNode *_root, int value) {
   TreeNode *node = node_create(value);
+
   if (node == NULL) {
     printf("Error allocating memory");
     return;
   };
+
   node->value = value;
-  if (root == NULL) {
+  if (*root == NULL) {
     *root = node;
     return;
   };
@@ -40,21 +42,24 @@ void bst_insert(TreeNode **root, TreeNode *_root, int value) {
   if (_root == NULL) {
     return;
   };
+
   if (value < _root->value) {
-    while (_root->left != NULL && _root->right) {
-      bst_insert(root, _root->left, value);
-    };
-    _root = node_create(value);
+    if (_root->left != NULL) {
+      _root = _root->left;
+      bst_insert(root, _root, value);
+    }
+    _root->left = node_create(value);
+    return;
   };
 
   if (value > _root->value) {
-    while (_root->left != NULL && _root->right) {
-      bst_insert(root, _root->right, value);
-    };
-    _root = node_create(value);
+    if (_root->right != NULL) {
+      _root = _root->right;
+      bst_insert(root, _root, value);
+    }
+    _root->right = node_create(value);
+    return;
   };
-
-  // return root;
 };
 
 int main() {
@@ -63,7 +68,10 @@ int main() {
   bst_insert(&root, root, 4);
   bst_insert(&root, root, 3);
   bst_insert(&root, root, 6);
-  // bst_insert(&root, root, 2);
+  bst_insert(&root, root, 2);
+  bst_insert(&root, root, 5);
+  bst_insert(&root, root, 7);
 
-  // traverse_pre(root);
+  traverse_pre(root);
+  printf("\n");
 };
