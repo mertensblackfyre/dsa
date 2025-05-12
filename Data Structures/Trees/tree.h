@@ -1,30 +1,21 @@
 #ifndef TREE_H
 #define TREE_H
 
-#include <stdbool.h>
+#include <stdio.h>
+#include <stdlib.h>
 
-typedef struct TreeNode
-{
-    int data;
-    struct TreeNode *left;
-    struct TreeNode *right;
-
+typedef struct TreeNode {
+  int value;
+  struct TreeNode *left;
+  struct TreeNode *right;
 } TreeNode;
 
-// Insertion
-TreeNode *node_create(int value);
-void node_add_right(TreeNode *node, TreeNode *root);
-void node_add_left(TreeNode *node, TreeNode *root);
-void bst_insert(TreeNode *node, TreeNode *root);
-
-// DFS
 void traverse_pre(TreeNode *root);
-void traverse_inorder(TreeNode *root);
+void traverse_in(TreeNode *root);
 void traverse_post(TreeNode *root);
-TreeNode *bst_find(TreeNode *root, int value);
+TreeNode *node_create(int value);
+void bst_insert(TreeNode **root, TreeNode *_root, int value);
+TreeNode *bst_remove(TreeNode *_root, int value);
 
-void node_delete(TreeNode *root, int value);
-
-void bfs(TreeNode *root);
-
+TreeNode *getSuccessor(TreeNode *curr);
 #endif
