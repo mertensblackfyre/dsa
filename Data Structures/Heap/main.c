@@ -17,17 +17,20 @@ typedef struct Heap {
 } Heap;
 
 void push(int value, Heap *data);
-void print(Heap *data);
+void print(Heap data);
 
 void pop(Heap *data);
 Tuple *min(int *lchild, int *rchild, int lpos, int rpos);
 
 int main() {
+
   Heap *data = malloc(sizeof(Heap));
   data->size = 1;
+
   push(16, data);
   push(21, data);
   push(14, data);
+
   push(19, data);
   push(26, data);
   push(19, data);
@@ -38,15 +41,15 @@ int main() {
 
   pop(data);
 
-  print(data);
+  // print(*data);
   return 0;
 }
 
-void print(Heap *data) {
-  for (size_t i = 0; i < data->size; i++) {
-    if (data->data[i] == 0)
+void print(Heap data) {
+  for (size_t i = 1; i < data.size; i++) {
+    if (data.data[i] == 0)
       continue;
-    printf("%d -> ", data->data[i]);
+    printf("%d -> ", data.data[i]);
   };
   printf("\n");
 };
@@ -54,7 +57,7 @@ void print(Heap *data) {
 void push(int value, Heap *data) {
   data->data[data->size++] = value;
 
-  int i = data->size - 1;
+  int i = data->size;
   while (data->data[i] < data->data[i / 2]) {
     int tmp = data->data[i];
     data->data[i] = data->data[i / 2];
@@ -66,7 +69,16 @@ void push(int value, Heap *data) {
 
 Tuple *min(int *lchild, int *rchild, int lpos, int rpos) {
   Tuple *t = malloc(sizeof(Tuple));
-  if (lchild <= rchild) {
+
+  if (t == NULL) {
+    printf("Error in alloaction");
+  };
+
+  if (!*lchild || !*rchild) {
+    printf("Error in finding the min");
+    return t;
+  }
+  if (*lchild <= *rchild) {
     t->min = lchild;
     t->pos = lpos;
   } else {
@@ -88,17 +100,23 @@ void pop(Heap *data) {
 
   Tuple *min_tupe =
       min(&data->data[lchild], &data->data[rchild], lchild, rchild);
+
+  if (min_tupe->min == NULL)
+    return;
+
   while (*min_tupe->min <= data->data[i]) {
+    if (&data->data[lchild] == 0 || &data->data[rchild] == 0)
+      break;
+
     int tmp = *min_tupe->min;
     *min_tupe->min = data->data[i];
     data->data[i] = tmp;
- 
-/*
-    i = min_tupe->pos;
 
+    i = min_tupe->pos;
     lchild = 2 * i;
     rchild = 2 * i + 1;
     min_tupe = min(&data->data[lchild], &data->data[rchild], lchild, rchild);
-  */
-    }
+  };
+
+  return;
 };
