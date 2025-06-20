@@ -16,8 +16,8 @@ typedef struct Heap {
   size_t size;
 } Heap;
 
+void heapify(Heap *data);
 void top(Heap *data);
-
 void push(int value, Heap *data);
 void print(Heap *data);
 void pop(Heap *data);
@@ -26,31 +26,37 @@ Tuple *min(int *lchild, int *rchild, int lpos, int rpos);
 int main() {
 
   Heap *data = malloc(sizeof(Heap));
-  data->size = 1;
 
-  data->data[0] = 0;
+  int arr[] = {60, 50, 80, 40, 30, 10, 70, 20, 90};
 
-  push(16, data);
-  push(21, data);
-  push(14, data);
+ // data->data
+  /*
+    data->size = 1;
+    data->data[0] = 0;
 
-  push(19, data);
-  push(26, data);
-  push(19, data);
 
-  push(68, data);
-  push(65, data);
-  push(30, data);
+    push(16, data);
+    push(21, data);
+    push(14, data);
 
-  // OUTPUT: 14 -> 19 -> 16 -> 21 -> 26 -> 19 -> 68 -> 65 -> 30 ->
-  printf("Before pop()\n");
-  print(data);
+    push(19, data);
+    push(26, data);
+    push(19, data);
 
-  pop(data);
+    push(68, data);
+    push(65, data);
+    push(30, data);
 
-  // OUTPUT: 19 -> 16 -> 21 -> 26 -> 19 -> 68 -> 65 -> 30 ->
-  printf("After pop()\n");
-  print(data);
+    // OUTPUT: 14 -> 19 -> 16 -> 21 -> 26 -> 19 -> 68 -> 65 -> 30 ->
+    printf("Before pop()\n");
+    print(data);
+
+    pop(data);
+
+    // OUTPUT: 19 -> 16 -> 21 -> 26 -> 19 -> 68 -> 65 -> 30 ->
+    printf("After pop()\n");
+    print(data);
+    */
   return 0;
 }
 
@@ -59,7 +65,8 @@ void top(Heap *data) {
     return;
   printf("%d\n", data->data[1]);
   return;
-}
+};
+
 void print(Heap *data) {
   for (size_t i = 0; i < data->size; i++) {
     if (data->data[i] == 0)
@@ -141,4 +148,8 @@ void pop(Heap *data) {
     min_tupe = min(&data->data[lchild], &data->data[rchild], lchild, rchild);
   };
   return;
+};
+
+void heapify(Heap *data) {
+
 };
