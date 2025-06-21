@@ -1,4 +1,5 @@
 #include <math.h>
+#include <stdbool.h>
 #include <stddef.h>
 #include <stdio.h>
 #include <stdlib.h>
@@ -16,20 +17,22 @@ typedef struct Heap {
   size_t size;
 } Heap;
 
-void heapify(Heap *data);
 void top(Heap *data);
 void push(int value, Heap *data);
 void print(Heap *data);
 void pop(Heap *data);
 Tuple *min(int *lchild, int *rchild, int lpos, int rpos);
 
+void heapify(int *arr, size_t size);
 int main() {
 
   Heap *data = malloc(sizeof(Heap));
 
   int arr[] = {60, 50, 80, 40, 30, 10, 70, 20, 90};
 
- // data->data
+  size_t size = sizeof(arr) / sizeof(arr[0]);
+  heapify(arr, size);
+  // data->data
   /*
     data->size = 1;
     data->data[0] = 0;
@@ -56,9 +59,53 @@ int main() {
     // OUTPUT: 19 -> 16 -> 21 -> 26 -> 19 -> 68 -> 65 -> 30 ->
     printf("After pop()\n");
     print(data);
-    */
+
+
+
+*/
   return 0;
 }
+
+void heapify(int *arr, size_t size) {
+
+  bool re = false;
+  arr[size] = arr[0];
+  arr[0] = 0;
+
+  int mid = size / 2;
+  int i = mid;
+  int lchild = i * 2;
+  int rchild = i * 2 + 1;
+  int parent = i / 2;
+
+  Tuple *min_tupe = min(&arr[lchild], &arr[rchild], lchild, rchild);
+
+  if (min_tupe->min == NULL) {
+    printf("Error in min function 2\n");
+    return;
+  };
+
+  do {
+    if (&arr[lchild] == 0 || &arr[rchild] == 0)
+      break;
+
+    int tmp = *min_tupe->min;
+    *min_tupe->min = arr[i];
+    arr[i] = tmp;
+
+    i--;
+    printf("%d\n", arr[i]);
+    lchild = 2 * i;
+    rchild = 2 * i + 1;
+    min_tupe = min(&arr[lchild], &arr[rchild], lchild, rchild);
+
+  } while (*min_tupe->min <= arr[i]);
+
+  for (size_t i = 1; i < size + 1; i++) {
+    printf("%d -> ", arr[i]);
+  }
+  printf("\n");
+};
 
 void top(Heap *data) {
   if (data->data[1] == 0)
@@ -148,8 +195,4 @@ void pop(Heap *data) {
     min_tupe = min(&data->data[lchild], &data->data[rchild], lchild, rchild);
   };
   return;
-};
-
-void heapify(Heap *data) {
-
 };
