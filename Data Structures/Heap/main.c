@@ -63,6 +63,10 @@ int main() {
 
 
 */
+  for (size_t i = 1; i < size + 1; i++) {
+    printf("%d -> ", arr[i]);
+  }
+  printf("\n");
   return 0;
 }
 
@@ -72,11 +76,9 @@ void heapify(int *arr, size_t size) {
   arr[size] = arr[0];
   arr[0] = 0;
 
-  int mid = size / 2;
-  int i = mid;
+  int i = (int)size / 2;
   int lchild = i * 2;
   int rchild = i * 2 + 1;
-  int parent = i / 2;
 
   Tuple *min_tupe = min(&arr[lchild], &arr[rchild], lchild, rchild);
 
@@ -89,22 +91,22 @@ void heapify(int *arr, size_t size) {
     if (&arr[lchild] == 0 || &arr[rchild] == 0)
       break;
 
-    int tmp = *min_tupe->min;
-    *min_tupe->min = arr[i];
-    arr[i] = tmp;
+    if (*min_tupe->min <= arr[i]) {
+      int tmp = *min_tupe->min;
+      *min_tupe->min = arr[i];
+      arr[i] = tmp;
+    };
 
     i--;
-    printf("%d\n", arr[i]);
     lchild = 2 * i;
     rchild = 2 * i + 1;
     min_tupe = min(&arr[lchild], &arr[rchild], lchild, rchild);
 
+    if (min_tupe->min == NULL) {
+      printf("Error in min function 2\n");
+      break;
+    };
   } while (*min_tupe->min <= arr[i]);
-
-  for (size_t i = 1; i < size + 1; i++) {
-    printf("%d -> ", arr[i]);
-  }
-  printf("\n");
 };
 
 void top(Heap *data) {
