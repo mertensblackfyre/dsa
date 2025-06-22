@@ -28,45 +28,40 @@ int main() {
 
   Heap *data = malloc(sizeof(Heap));
 
+ // data->data
+  data->size = 1;
+  data->data[0] = 0;
+
+  push(16, data);
+  push(21, data);
+  push(14, data);
+
+  push(19, data);
+  push(26, data);
+  push(19, data);
+
+  push(68, data);
+  push(65, data);
+  push(30, data);
+
+  // OUTPUT: 14 -> 19 -> 16 -> 21 -> 26 -> 19 -> 68 -> 65 -> 30 ->
+  printf("Before pop()\n");
+  print(data);
+
+  pop(data);
+
+  // OUTPUT: 19 -> 16 -> 21 -> 26 -> 19 -> 68 -> 65 -> 30 ->
+  printf("After pop()\n");
+  print(data);
+
+
+
   int arr[] = {60, 50, 80, 40, 30, 10, 70, 20, 90};
 
   size_t size = sizeof(arr) / sizeof(arr[0]);
   heapify(arr, size);
-  // data->data
-  /*
-    data->size = 1;
-    data->data[0] = 0;
 
-
-    push(16, data);
-    push(21, data);
-    push(14, data);
-
-    push(19, data);
-    push(26, data);
-    push(19, data);
-
-    push(68, data);
-    push(65, data);
-    push(30, data);
-
-    // OUTPUT: 14 -> 19 -> 16 -> 21 -> 26 -> 19 -> 68 -> 65 -> 30 ->
-    printf("Before pop()\n");
-    print(data);
-
-    pop(data);
-
-    // OUTPUT: 19 -> 16 -> 21 -> 26 -> 19 -> 68 -> 65 -> 30 ->
-    printf("After pop()\n");
-    print(data);
-
-
-
-*/
-  for (size_t i = 1; i < size + 1; i++) {
-    printf("%d -> ", arr[i]);
-  }
-  printf("\n");
+ 
   return 0;
 }
 
@@ -83,7 +78,7 @@ void heapify(int *arr, size_t size) {
   Tuple *min_tupe = min(&arr[lchild], &arr[rchild], lchild, rchild);
 
   if (min_tupe->min == NULL) {
-    printf("Error in min function 2\n");
+    printf("Tuple is empty\n");
     return;
   };
 
@@ -103,7 +98,7 @@ void heapify(int *arr, size_t size) {
     min_tupe = min(&arr[lchild], &arr[rchild], lchild, rchild);
 
     if (min_tupe->min == NULL) {
-      printf("Error in min function 2\n");
+      printf("tuple is empty\n");
       break;
     };
   } while (*min_tupe->min <= arr[i]);
@@ -146,12 +141,12 @@ Tuple *min(int *lchild, int *rchild, int lpos, int rpos) {
   Tuple *t = malloc(sizeof(Tuple));
 
   if (t == NULL) {
-    printf("Error in alloaction");
+    printf("Error allocating Tuple");
     return t;
   };
 
   if (!*lchild || !*rchild) {
-    printf("Error in finding the min\n");
+    printf("lchild or rchild is non existent\n");
     return t;
   }
   if (*lchild <= *rchild) {
