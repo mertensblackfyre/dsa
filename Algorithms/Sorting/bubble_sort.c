@@ -1,5 +1,6 @@
 #include <stdbool.h>
 #include <stddef.h>
+
 #include <stdio.h>
 
 void bubble_sort(int *arr, size_t size);

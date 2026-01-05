@@ -11,7 +11,5 @@ void vector_pop_back(int **__array);
 int *resize(int *array);
 
 
-
-
 #endif // !VECTOR_H
 

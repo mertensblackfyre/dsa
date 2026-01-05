@@ -1,7 +1,6 @@
 #include "vector.h"
 #include <stdlib.h>
 
-
 int main() {
 
   int *arr = vector_create(1);
@@ -19,7 +18,6 @@ int main() {
 
   free(arr);
 };
-
 
 int *resize(int *array) {
   int *new_array = vector_create(tail * 2);
